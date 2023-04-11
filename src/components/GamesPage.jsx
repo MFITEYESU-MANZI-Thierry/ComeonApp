@@ -6,14 +6,22 @@ function GamesPage({searchKeyword}) {
   const [selectedCategory, setSelectedCategory] = useState(0); // Default is ALL
 
   useEffect(() => {
-    async function fetchData() {
-      const [gamesResponse, categoriesResponse] = await Promise.all([
-        fetch('/api/games.json').then((response) => response.json()),
-        fetch('/api/categories.json').then((response) => response.json()),
-      ]);
+    // async function fetchData() {
+    //   const [gamesResponse, categoriesResponse] = await Promise.all([
+    //     fetch('/api/games.json').then((response) => response.json()),
+    //     fetch('/api/categories.json').then((response) => response.json()),
+    //   ]);
 
-      setGames(gamesResponse);
-      setCategories(categoriesResponse);
+    //   setGames(gamesResponse);
+    //   setCategories(categoriesResponse);
+    // }
+
+    async function fetchData() {
+
+      const gamesResponse = await fetch('/api/mock-data.json');
+      const fullgamesResponse = await gamesResponse.json();
+      setGames(fullgamesResponse['games']);
+      setCategories(fullgamesResponse['categories']);
     }
 
     fetchData();

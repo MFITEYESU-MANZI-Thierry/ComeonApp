@@ -12,14 +12,22 @@ function LoginPage(props) {
     try {
       const response = await fetch('/api/users.json');
       const users = await response.json();
-
-      const user = users.find(u => u.username === username && u.password === password);
-
-      if (user) {
+      // alert(JSON.stringify(users[username]));
+      if(users[username] && users[username].password === password){
+        // const user = users.find(u => u.username === username && u.password === password);
+        const user = users[username];
         props.onLoginSuccess(user);
-      } else {
+        
+
+      }else{
         setError('Invalid username or password');
       }
+
+      // if (user) {
+      //   props.onLoginSuccess(user);
+      // } else {
+      //   setError('Invalid username or password');
+      // }
 
     } catch (error) {
       console.log(error);
